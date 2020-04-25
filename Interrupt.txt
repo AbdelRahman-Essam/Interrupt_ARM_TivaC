@@ -1,0 +1,9 @@
+Interrupt Driver:
+-Priority(Normal/Grouping) -> Set+Get
+-Enable/Disable
+-Interrupt Map Numbers
+-Set Pending / Clear Pending / Get Pending
+-Active State -> Get
+-Software Pending
+
+Callback function is needed.

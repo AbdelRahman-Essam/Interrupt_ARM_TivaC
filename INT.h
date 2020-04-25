@@ -11,7 +11,8 @@
 #include "utils.h"
 #include "std_types.h"
 
-
+extern void (*g_pfnRAMVectors[155])(void);
+extern void (* g_pfnVectors[])(void);
 
 
 
@@ -26,7 +27,7 @@ typedef enum{INT_PortA=16,INT_PortB=17,INT_PortC=18,INT_PortD=19,INT_PortE=20,IN
 		INT_32Timer5A=120,INT_32Timer5B=121}INT_ID_t;
 
 
-
+void isr_Empty (void);
 void INT_Init(void);
 void INT_Enable(u8 ID);
 void INT_Disable(u8 ID);

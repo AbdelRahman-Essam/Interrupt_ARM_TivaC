@@ -5,11 +5,7 @@
  */
  //main.c
 
-	extern void (* g_pfnVectors[])(void);
 
-	#pragma DATA_ALIGN(g_pfnRAMVectors, 1024)
-	#pragma DATA_SECTION(g_pfnRAMVectors, ".vtable")
-	void (*g_pfnRAMVectors[155])(void);
 
 int main(void)
 {
@@ -27,18 +23,9 @@ int main(void)
     GPIOIntQuickInit(PORTF,0b00010000,Edge,Falling);
 
 
-	    REG Int_Mask = PORTF_AHB + GPIOIM ;
-	    SETBIT(*Int_Mask,4);
-	    //INT_Init();
-    int i=0;
-    	for(i = 0; i < 155; i++)
-    	   {
-               g_pfnRAMVectors[i] = g_pfnVectors[i];
-           }
-           REG reg     =   0xE000ED08 ;
-           *reg = (unsigned long int)g_pfnRAMVectors; // Point the NVIC at the RAM vector table.
+	    INT_Init();
 
-           g_pfnRAMVectors[46] = usr_isr_portF;
+        g_pfnRAMVectors[46] = usr_isr_portF;
 while(1)
 {
 

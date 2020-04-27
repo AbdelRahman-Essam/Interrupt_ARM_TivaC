@@ -83,5 +83,6 @@ u8 GPIOPortTrans(gpio_port_t port);
 u32 GPIOPortAddrGet(gpio_port_t port);
 
 
+void TIMER0_Handler(void);
 
 #endif /* GPIO_H_ */

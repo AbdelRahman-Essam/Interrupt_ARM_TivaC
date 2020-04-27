@@ -26,19 +26,20 @@ typedef enum{INT_PortA=16,INT_PortB=17,INT_PortC=18,INT_PortD=19,INT_PortE=20,IN
 		INT_32Timer2B=115,INT_32Timer3A=116,INT_32Timer3B=117,INT_32Timer4A=118,INT_32Timer4B=119,
 		INT_32Timer5A=120,INT_32Timer5B=121}INT_ID_t;
 
+void INT_SetISR(INT_ID_t ID,void (*function) (void));
 
 void isr_Empty (void);
 void INT_Init(void);
-void INT_Enable(u8 ID);
-void INT_Disable(u8 ID);
+void INT_Enable(INT_ID_t ID);
+void INT_Disable(INT_ID_t);
 
-void INT_SetPending(u8 ID);
-void INT_ClearPending(u8 ID);
-u8 INT_GetPending(u8 ID);
+void INT_SetPending(INT_ID_t ID);
+void INT_ClearPending(INT_ID_t);
+u8 INT_GetPending(INT_ID_t ID);
 
-u8 INT_GetActiveState(u8 ID);
-void INT_SetPriority(u8 ID,u8 priority);
-u8 INT_GetPriority(u8 ID);
+u8 INT_GetActiveState(INT_ID_t ID);
+void INT_SetPriority(INT_ID_t ID,u8 priority);
+u8 INT_GetPriority(INT_ID_t ID);
 void usr_isr_portF(void);
 
 

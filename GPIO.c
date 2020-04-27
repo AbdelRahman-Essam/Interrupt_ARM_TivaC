@@ -261,8 +261,10 @@ u8 GPIORead(gpio_port_t port, u8 pins)
 {/* port = PORTA , PORTB , PORTC , PORTD , PORTE , PORTF
  *  pins = 0bxxxxxxxx */
     u32 PORT=GPIOPortAddrGet(port);
-    REG DataReg =(PORT+pins);
-    u8 DataReg_data = *DataReg;
+    u16 mask=pins;
+    mask=mask<<2;
+    REG DataReg =(PORT+mask);
+    u32 DataReg_data = *DataReg;
     return (DataReg_data);
 }
 /**********************************************/

@@ -153,7 +153,10 @@ void (* g_pfnRAMVectors[]) (void) =
     isr_Empty                       // PWM 1 Fault
 };
 
-
+void INT_SetISR(INT_ID_t ID,void (*function) (void))
+{
+	g_pfnRAMVectors[ID]=function;
+}
 void INT_Init(void)
 {
 	int i=0;
@@ -165,7 +168,7 @@ void INT_Init(void)
        *reg = (unsigned long int)g_pfnRAMVectors; // Point the NVIC at the RAM vector table.
 }
 /*************************************************/
-void INT_Enable(u8 ID)
+void INT_Enable(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x100+(((ID-16)/32)*4);
@@ -173,7 +176,7 @@ void INT_Enable(u8 ID)
     SETBIT(*reg,n);
 }
 /*************************************************/
-void INT_Disable(u8 ID)
+void INT_Disable(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x180+(((ID-16)/32)*4);
@@ -186,7 +189,7 @@ void INT_Disable(u8 ID)
     *reg1=data;
 }
 /*************************************************/
-void INT_SetPending(u8 ID)
+void INT_SetPending(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x200+(((ID-16)/32)*4);
@@ -194,7 +197,7 @@ void INT_SetPending(u8 ID)
     SETBIT(*reg,n);
 }
 /*************************************************/
-void INT_ClearPending(u8 ID)
+void INT_ClearPending(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x280+(((ID-16)/32)*4);
@@ -207,7 +210,7 @@ void INT_ClearPending(u8 ID)
     *reg1=data;
 }
 /*************************************************/
-u8 INT_GetPending(u8 ID)
+u8 INT_GetPending(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x200+(((ID-16)/32)*4);
@@ -216,7 +219,7 @@ u8 INT_GetPending(u8 ID)
     return(data);
 }
 /*************************************************/
-u8 INT_GetActiveState(u8 ID)
+u8 INT_GetActiveState(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h*/
     u8 n=(ID-16)%32;
     u16 ofst=0x300+(((ID-16)/32)*4);
@@ -225,7 +228,7 @@ u8 INT_GetActiveState(u8 ID)
     return(data);
 }
 /*************************************************/
-void INT_SetPriority(u8 ID,u8 priority)
+void INT_SetPriority(INT_ID_t ID,u8 priority)
 {/*You Can Get the ID from INT_config.h ,, priority 0 --> 7 */
     u8 n=(ID-16)%4;
     u16 ofst=0x400+(((ID-16)/4)*4);
@@ -236,7 +239,7 @@ void INT_SetPriority(u8 ID,u8 priority)
     *reg=mask;
 }
 /*************************************************/
-u8 INT_GetPriority(u8 ID)
+u8 INT_GetPriority(INT_ID_t ID)
 {/*You Can Get the ID from INT_config.h ,, priority 0 --> 7 */
     u8 n=(ID-16)%4;
     u16 ofst=0x400+(((ID-16)/4)*4);
@@ -253,9 +256,4 @@ void isr_Empty (void)
         ;
 }
 
-
-
-   //
-   // Save the interrupt handler.
-   //
   // g_pfnRAMVectors[46] = usr_isr_portF;

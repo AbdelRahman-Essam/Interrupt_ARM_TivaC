@@ -18,7 +18,8 @@
 #define     SYSCTL          0x400FE000
 
 #define     GPIOHBCTL       0x06C
-
+#define		PRTIMER			0xA04
+#define		PRWTIMER		0xA5C
 /***********************GPIO****************************/
 #define     PORTA_APB       0x40004000
 #define     PORTA_AHB       0x40058000
@@ -61,13 +62,6 @@
 /**********************INT*****************************/
 #define     INT             0xE000E000
 
-
-
-
-
-
-
-
 #define     INT_UART0       5
 #define     INT_UART1       6
 #define     INT_SSI0        7
@@ -78,7 +72,37 @@
 #define     PRI7            0x41C
 #define     PEND0           0x200
 
+/***********************GPTM*******************************/
+#define		GPTMCFG			0x000
+#define		GPTMTAMR		0x004
+#define 	GPTMTBMR		0x008
+#define		GPTMCTL			0x00C
+#define 	GPTMSYNC		0x010
+#define		GPTMIMR			0x018
+#define		GPTMRIS			0x01C
+#define		GPTMMIS			0x020
+#define		GPTMICR			0x024
+#define 	GPTMTAILR		0x028
+#define		GPTMTBILR		0x02C
+#define		GPTMTAMATCHR	0x030
+#define		GPTMTBMATCHR	0x034
+#define		GPTMTAPR		0x038
+#define		GPTMTBPR		0x03C
+#define		GPTMTAPMR		0x040
+#define		GPTMTBPMR		0x044
+#define		GPTMTAR			0x048
+#define		GPTMTBR			0x04C
+#define 	GPTMTAV			0x050
+#define		GPTMTBV			0x054
+#define		GPTMRTCPD		0x058
+#define		GPTMTAPS		0x060
 
+#define TIMER0_TAILR_R          (*((volatile u32 *)0x40030028))
+#define TIMER0_IMR_R            (*((volatile u32 *)0x40030018))
+#define TIMER0_CTL_R            (*((volatile u32 *)0x4003000C))
+#define TIMER0_ICR_R            (*((volatile u32 *)0x40030024))
+#define TIMER0_CFG_R            (*((volatile u32 *)0x40030000))
+#define TIMER0_TAMR_R           (*((volatile u32 *)0x40030004))
 
 
 //*****************************************************************************
